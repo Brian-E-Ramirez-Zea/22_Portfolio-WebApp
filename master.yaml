@@ -1,0 +1,412 @@
+cv:
+  name: Brian E. Ramirez Zea
+  location: Mayagüez, PR
+  email: brian.ramirez6@upr.edu
+  phone: +1 (787) 223-9495
+  website: https://be-ramirezzea.dev
+  objective:
+    - text: 'Aspiring software engineer in DevOps and backend development, seeking to leverage strong programming skills, cloud infrastructure knowledge, and a passion for building scalable systems in a dynamic software engineering role.'
+  social_networks:
+  - network: LinkedIn
+    username: brian-e-ramirez-zea
+  - network: GitHub
+    username: Brian-E-Ramirez-Zea
+  sections:
+    education:
+    - institution: University of Puerto Rico, Mayagüez
+      area: Software Engineering
+      degree: B.S.
+      start_date: '2021-08'
+      end_date: '2028-05'
+      highlights:
+      - 'Major GPA: 3.05/4.00'
+      - 'Relevant Coursework: Data Structures, Operating Systems, Software Engineering,
+        Computer Architecture, Algorithms & System Design'
+    - institution: CodePath Tech Exchange
+      area: Applied Software Development & Systems
+      degree: Certificate
+      start_date: '2026-01'
+      end_date: '2026-05'
+      highlights:
+      - Selected as an Immersive Software Engineering Fellow for an intensive 15-week
+        academic program in partnership with UPRM.
+      - 'Core Modules: Advanced Software Engineering with GenAI, System Design & Architecture,
+        Data Structures & Algorithms, Careers in Tech.'
+    - institution: KodeKloud
+      area: CKA (Certified Kubernetes Administrator)
+      degree: Certificate
+      start_date: '2026-06'
+      end_date: 'present'
+      highlights:
+      - 'completed 50% of the CKA course and hands-on labs, focusing on Kubernetes cluster management,
+        networking, and security.'
+      - 'Core Modules: Kubernetes Architecture, Cluster Setup & Configuration, Workloads & Scheduling,
+        Services & Networking, Storage, Logging & Monitoring, Security, Troubleshooting.'
+
+    skills:
+    - label: Languages
+      details: Python (Advanced), Java, C++, JavaScript, TypeScript, SQL (PostgreSQL), MIPS/6502 Assembly, Bash/Shell
+    - label: Systems & Cloud
+      details: Linux (Arch, Ubuntu/Debian), Docker, Kubernetes (K3s), Oracle Cloud (OCI), Google Cloud (Cloud Run, BigQuery, Vertex AI), Raspberry Pi 5, Tailscale, Cloudflare Tunnels
+    - label: Frameworks & Tools
+      details: FastAPI, Flask, React, Angular 19, Node.js, REST APIs, GitHub Actions (CI/CD), Gitflow, PostgreSQL, OpenAI/Gemini APIs, Systemd, UFW
+
+    experience:
+    - company: University of Puerto Rico, Mayagüez
+      position: Administrative Assistant
+      location: Mayagüez, PR
+      start_date: '2026-08'
+      end_date: present
+      all_bullets:
+      - text: Streamlined departmental operations and supported administrative workflows
+          to ensure prompt and accurate institutional service delivery.
+        tags:
+        - operations
+        - admin
+        - productivity
+      - text: Managed front-desk communications, schedule coordination, and student record
+          management while providing direct procedural assistance to faculty and students.
+        tags:
+        - communication
+        - admin
+        - coordination
+      - text: Maintained digital correspondence, conducted inventory counts, and managed
+          internal documentation updates across institutional web pages using WordPress.
+        tags:
+        - admin
+        - wordpress
+        - documentation
+        - it-support
+
+    - company: University of Puerto Rico, Mayagüez
+      position: Advanced Programming Mentor
+      location: Mayagüez, PR
+      start_date: '2025-01'
+      end_date: '2025-05'
+      all_bullets:
+      - text: Elevated student comprehension and success through one-on-one technical
+          troubleshooting and guidance on complex programming assignments.
+        tags:
+        - mentoring
+        - teaching
+        - python
+        - cpp
+        - java
+      - text: Strengthened mentees' problem-solving velocity and code quality by reinforcing
+          core concepts in memory management, recursion, and object-oriented design.
+        tags:
+        - mentoring
+        - tutoring
+        - algorithms
+        - data-structures
+      - text: Facilitated weekly laboratory sessions across Python, Java, and C++, guiding
+          students through structured debugging workflows to foster independent problem-solving.
+        tags:
+        - mentoring
+        - debugging
+        - communication
+        - lab
+
+    - company: Municipio De Mayagüez
+      position: Auxiliary Leader / Summer Camp Leader
+      location: Mayagüez, PR
+      start_date: '2026-06'
+      end_date: '2026-07'
+      all_bullets:
+      - text: Supervised cohorts of 20+ youth in a fast-paced environment, coordinating
+          daily schedules, educational excursions, and team-building activities.
+        tags:
+        - leadership
+        - coordination
+        - operations
+      - text: Applied proactive conflict resolution and social-emotional coaching techniques
+          to cultivate an inclusive, supportive, and engaging learning atmosphere.
+        tags:
+        - leadership
+        - conflict-resolution
+        - communication
+      - text: Partnered with camp directors and municipal staff to design, organize, and
+          execute large-group logistics and special institutional events.
+        tags:
+        - leadership
+        - teamwork
+        - logistics
+
+    projects:
+    - name: UnifiedVault (Hybrid Cloud Homelab & Monorepo)
+      date: 2025 – Present
+      summary: Multi-node hybrid private cloud orchestration and zero-trust infrastructure
+      all_bullets:
+      - text: Engineered a hybrid-cloud cluster bridging an edge Raspberry Pi 5 with
+          Oracle Cloud Infrastructure (OCI) instances, enabling scalable distributed processing.
+        tags:
+        - cloud
+        - oci
+        - linux
+        - docker
+        - distributed
+        - raspberry-pi
+      - text: Hardened system security to a zero-trust standard using Tailscale mesh VPN
+          and UFW firewall rules, eliminating public-facing port exposure for internal services.
+        tags:
+        - security
+        - networking
+        - tailscale
+        - zero-trust
+        - linux
+      - text: Architected a private Monorepo to centralize Infrastructure-as-Code (IaC),
+          custom systemd units, and container configs with full auditability and version control.
+        tags:
+        - iac
+        - devops
+        - git
+        - systemd
+        - monorepo
+      - text: Implemented an automated CI/CD deployment pipeline where pushes trigger a
+          self-hosted runner to pull updates via VPN and rebuild containers across cloud and edge nodes.
+        tags:
+        - cicd
+        - docker
+        - github-actions
+        - devops
+        - automation
+
+    - name: StockSense (Backend Inventory Management System)
+      date: 2026-02 – 2026-05
+      summary: Transaction-based inventory management REST API and CLI tool
+      all_bullets:
+      - text: Architected a centralized backend service using a transaction-based model
+          to ensure data accuracy, traceability, and a verifiable audit trail for inventory tracking.
+        tags:
+        - backend
+        - python
+        - database
+        - architecture
+        - transactions
+      - text: Developed a lightweight REST API and CLI-based system featuring automated
+          reordering logic to identify low-stock items based on historical usage patterns.
+        tags:
+        - backend
+        - api
+        - python
+        - cli
+        - rest
+      - text: Implemented core subsystems including an Item Registry for unique ID management,
+          real-time Stock Adjustments, and Stock Verification reporting.
+        tags:
+        - backend
+        - inventory
+        - python
+      - text: Collaborated in an Agile university team of 6 from requirements analysis
+          to MVP, implementing role-based access control (RBAC) and CSV data portability.
+        tags:
+        - agile
+        - collaboration
+        - rbac
+        - security
+        - gitflow
+
+    - name: AirBets (Full-Stack Cloud Application)
+      date: 2026-01 – 2026-05
+      summary: Containerized full-stack web application integrating BigQuery and Vertex AI
+      all_bullets:
+      - text: Designed and deployed a full-stack web application from the ground up using
+          Python and Flask, integrating Generative AI capabilities into user workflows.
+        tags:
+        - fullstack
+        - python
+        - flask
+        - ai
+        - web
+      - text: Built a scalable backend utilizing Google Cloud BigQuery for data management
+          and integrating Vertex AI APIs for data-driven generative features.
+        tags:
+        - gcp
+        - bigquery
+        - vertex-ai
+        - ai
+        - backend
+      - text: Established an automated CI/CD pipeline and deployed containerized services
+          on Google Cloud Run for highly available hosting.
+        tags:
+        - cicd
+        - cloud-run
+        - docker
+        - gcp
+        - devops
+      - text: Maintained rigorous code quality through structured Git branching, formal
+          code reviews, and comprehensive unit and integration test suites.
+        tags:
+        - testing
+        - quality-assurance
+        - git
+        - agile
+
+    - name: NES Assembly Fighting Game
+      date: '2024'
+      summary: 2D fighting game for the Nintendo Entertainment System written in 6502 Assembly
+      all_bullets:
+      - text: Engineered a functional 2D fighting game for the Nintendo Entertainment
+          System (NES) using 6502 Assembly, managing low-level hardware constraints and memory mapping.
+        tags:
+        - assembly
+        - low-level
+        - retro
+        - gamedev
+      - text: Implemented a multi-character swap system allowing players to switch between
+          three entities in real-time using controller interrupts.
+        tags:
+        - assembly
+        - low-level
+        - embedded
+      - text: Developed custom physics and collision detection routines, character-specific
+          velocities, and projectile mechanics to maintain consistent 60fps performance.
+        tags:
+        - algorithms
+        - physics
+        - gamedev
+        - performance
+      - text: Managed PPU operations including DMA sprite transfers, OAM buffer management,
+          and background tile loading alongside state-driven animation routines.
+        tags:
+        - graphics
+        - low-level
+        - assembly
+        - state-machine
+
+    - name: MyResumeApp & Portfolio Platform
+      date: '2023'
+      summary: Modular portfolio and resume web platform with AI chatbot and automated CI/CD
+      all_bullets:
+      - text: Built a responsive portfolio web application featuring modular component
+          architecture, SSR, and interactive skill data visualization with Chart.js.
+        tags:
+        - frontend
+        - angular
+        - react
+        - web
+        - dataviz
+      - text: Integrated Google Generative AI (@google/generative-ai) API to provide
+          an interactive conversational assistant for portfolio visitors.
+        tags:
+        - ai
+        - gemini
+        - api
+        - fullstack
+      - text: Implemented dynamic client-side PDF export functionality using html2pdf.js
+          and jsPDF for instant resume downloads.
+        tags:
+        - frontend
+        - javascript
+        - pdf
+      - text: Configured automated CI/CD deployment pipelines via GitHub Actions deploying
+          static builds to Cloudflare Pages for high-availability delivery.
+        tags:
+        - cicd
+        - cloudflare
+        - devops
+
+    - name: Minecraft Server Orchestration
+      date: '2026'
+      summary: Persistent containerized gaming server environment on Kubernetes
+      all_bullets:
+      - text: Deployed and orchestrated a persistent multiplayer server environment
+          on Kubernetes, optimizing compute allocation and automated resource scaling.
+        tags:
+        - kubernetes
+        - devops
+        - sysadmin
+        - containers
+      - text: Applied Infrastructure-as-Code (IaC) principles to manage container configurations,
+          minimizing deployment latency and configuration drift.
+        tags:
+        - iac
+        - devops
+        - kubernetes
+      - text: Configured Persistent Volume Claims (PVCs) for automated backup cycles,
+          guaranteeing data durability across pod rescheduling and node maintenance.
+        tags:
+        - storage
+        - kubernetes
+        - reliability
+
+    - name: Campus Event Aggregator & Web Crawler
+      date: '2026'
+      URL: 'https://uprm-events.be-ramirezzea.dev/'
+      summary: Multi-framework web crawling and data ingestion pipeline for campus bulletins
+      all_bullets:
+      - text: Designed and prototyped a campus event aggregation platform to normalize,
+          deduplicate, and merge events from disparate university sources.
+        tags:
+        - backend
+        - python
+        - web-scraping
+        - data-pipelines
+      - text: Evaluated and benchmarked web crawling solutions across Python/Django,
+          Next.js/TypeScript, and Laravel/PHP, analyzing extraction performance and legal compliance.
+        tags:
+        - benchmarking
+        - research
+        - python
+        - typescript
+      - text: Built resilient crawler logic incorporating robots.txt validation, rate
+          limiting, exponential backoff, and HTML/PDF document parsing.
+        tags:
+        - web-scraping
+        - python
+        - security
+        - parsing
+      - text: Built a containerized proof-of-concept on Docker and Kubernetes with health
+          checks and ingress routing for scalable deployment.
+        tags:
+        - docker
+        - kubernetes
+        - devops
+
+    - name: SolstitiumVault (Algorithmic Trading Bot)
+      date: '2026'
+      summary: Modular algorithmic trading framework with strategy plugin architecture
+      all_bullets:
+      - text: Researched API endpoints and authentication protocols across Webull, Kalshi,
+          and Smarkets for automated trade execution.
+        tags:
+        - api
+        - python
+        - finance
+      - text: Designed a modular plugin architecture conceptually to facilitate hot-swapping
+          and testing of diverse algorithmic trading strategies.
+        tags:
+        - architecture
+        - software-design
+        - python
+      - text: Outlined fixed-fractional risk management protocols (Stop-Loss/Take-Profit)
+          prioritizing capital preservation during volatile market conditions.
+        tags:
+        - algorithms
+        - finance
+        - risk-management
+
+    - name: AI Resume Tailoring & Requisition Pipeline
+      date: '2026'
+      summary: Automated job aggregator scraper and AI-driven ATS resume compiler
+      all_bullets:
+      - text: Architected an end-to-end resume tailoring engine using Python, Google Gemini API, and RenderCV, compiling publication-grade ATS resumes under strict 1-page constraints.
+        tags:
+        - ai
+        - python
+        - automation
+        - rendercv
+        - gemini
+      - text: Built an automated job ingestion pipeline using python-jobspy, BeautifulSoup, and HTTPX to scrape listings from LinkedIn, Indeed, and Google into hierarchical employer directories.
+        tags:
+        - web-scraping
+        - python
+        - data-pipeline
+        - api
+        - automation
+      - text: Engineered a centralized YAML master inventory with multi-bullet variants and tagging to power deterministic baseline builds and requisition-aligned customization.
+        tags:
+        - software-design
+        - yaml
+        - devops
+        - productivity

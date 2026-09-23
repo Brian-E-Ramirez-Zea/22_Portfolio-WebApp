@@ -1,0 +1,30 @@
+services:
+  # Development service: runs Vite hot-reload server inside an isolated container
+  dev:
+    image: node:22-alpine
+    working_dir: /app
+    user: "1000:1000"
+    environment:
+      - HOME=/tmp
+    volumes:
+      - .:/app
+    ports:
+      - "5173:5173"
+    command: npm run dev
+
+  # Production service: builds and runs the unprivileged Caddy edge container
+  prod:
+    build:
+      context: .
+      target: runtime
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 32M
+        reservations:
+          cpus: "0.02"
+          memory: 16M
+
