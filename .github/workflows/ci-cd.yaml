@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: Brian-E-Ramirez-Zea/portfolio-webapp
+  IMAGE_NAME: brian-e-ramirez-zea/portfolio-webapp
 
 jobs:
   test-and-build:
