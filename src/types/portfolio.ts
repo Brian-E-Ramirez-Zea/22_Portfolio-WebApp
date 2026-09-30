@@ -68,5 +68,6 @@ export interface InfraExhibitData {
   k8sManifest: string;
   caddyConfig: string;
   dockerfileConfig: string;
+  gitopsManifest?: string;
 }
 

@@ -193,15 +193,14 @@ Mesh: ${FASTFETCH_DATA.architecture}`;
             </div>
             <div className="overflow-x-auto py-1 text-subtext1">
               <pre className="text-[11px] sm:text-[12px] leading-relaxed">
-{`NAME                STATUS   ROLES                  AGE    VERSION        INTERNAL-IP
-oci-ashburn-ctrl01  Ready    control-plane,master   142d   v1.30.2+k3s1   100.64.0.12
-rpi5-edge-node01    Ready    worker                 142d   v1.30.2+k3s1   100.64.0.14
-rpi5-edge-node02    Ready    worker                 98d    v1.30.2+k3s1   100.64.0.15`}
+{`NAME         STATUS   ROLES                  AGE    VERSION        INTERNAL-IP
+tradingpi    Ready    control-plane,master   142d   v1.30.2+k3s1   100.64.0.12
+ai-node      Ready    worker                 142d   v1.30.2+k3s1   100.64.0.14`}
               </pre>
             </div>
             <div className="flex items-center gap-2 text-[11px] text-green bg-green/10 p-2 rounded border border-green/20">
               <Server className="w-3.5 h-3.5" />
-              <span>3/3 Nodes Ready · Hybrid ARM64/AMD64 Workload Scheduling Active</span>
+              <span>2/2 Nodes Ready · Hybrid ARM64/AMD64 Workload Scheduling Active</span>
             </div>
           </div>
         )}

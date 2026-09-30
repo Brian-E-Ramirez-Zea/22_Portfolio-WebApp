@@ -11,13 +11,15 @@ import {
 import { INFRA_EXHIBIT, CLUSTER_STATUS } from '../data/portfolioData';
 
 export const InfraCard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'pipeline' | 'k8s' | 'caddy' | 'dockerfile'>('pipeline');
+  const [activeTab, setActiveTab] = useState<'pipeline' | 'k8s' | 'gitops' | 'caddy' | 'dockerfile'>('pipeline');
   const [copied, setCopied] = useState(false);
 
   const getCodeContent = () => {
     switch (activeTab) {
       case 'k8s':
         return INFRA_EXHIBIT.k8sManifest;
+      case 'gitops':
+        return INFRA_EXHIBIT.gitopsManifest || '';
       case 'caddy':
         return INFRA_EXHIBIT.caddyConfig;
       case 'dockerfile':
@@ -112,6 +114,18 @@ export const InfraCard: React.FC = () => {
             </button>
 
             <button
+              onClick={() => setActiveTab('gitops')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-all ${
+                activeTab === 'gitops'
+                  ? 'bg-blue text-base font-semibold shadow-glow-blue'
+                  : 'text-subtext0 hover:text-text'
+              }`}
+            >
+              <Workflow className="w-3.5 h-3.5" />
+              <span>GitOps (Flux CD)</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab('caddy')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-all ${
                 activeTab === 'caddy'
@@ -197,15 +211,15 @@ export const InfraCard: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
                 <div className="p-3 rounded border border-surface1 bg-surface0/40 space-y-1">
-                  <div className="text-yellow font-medium">Control Plane (Cloud)</div>
-                  <div className="text-subtext0">Oracle Cloud Infrastructure (OCI)</div>
-                  <div className="text-subtext1 text-[11px]">Ashburn, VA · 100.64.0.12</div>
+                  <div className="text-yellow font-medium">Control Plane (Edge)</div>
+                  <div className="text-subtext0">tradingpi (Master)</div>
+                  <div className="text-subtext1 text-[11px]">Tailscale Mesh · 100.64.0.12</div>
                 </div>
 
                 <div className="p-3 rounded border border-surface1 bg-surface0/40 space-y-1">
-                  <div className="text-blue font-medium">Worker Node 01 (Edge)</div>
-                  <div className="text-subtext0">Raspberry Pi 5 (8GB)</div>
-                  <div className="text-subtext1 text-[11px]">Local Mesh · 100.64.0.14</div>
+                  <div className="text-blue font-medium">Worker Node 01 (Compute)</div>
+                  <div className="text-subtext0">ai-node (Dedicated Worker)</div>
+                  <div className="text-subtext1 text-[11px]">Tailscale Mesh · 100.64.0.14</div>
                 </div>
 
                 <div className="p-3 rounded border border-surface1 bg-surface0/40 space-y-1">
@@ -226,14 +240,21 @@ export const InfraCard: React.FC = () => {
           </div>
         )}
 
-        {/* Tab 3: Caddyfile */}
+        {/* Tab 3: GitOps (Flux CD) */}
+        {activeTab === 'gitops' && (
+          <div className="rounded-lg border border-surface1 bg-crust p-4 overflow-x-auto font-mono text-xs sm:text-[13px] text-text leading-relaxed">
+            <pre className="text-subtext1">{INFRA_EXHIBIT.gitopsManifest}</pre>
+          </div>
+        )}
+
+        {/* Tab 4: Caddyfile */}
         {activeTab === 'caddy' && (
           <div className="rounded-lg border border-surface1 bg-crust p-4 overflow-x-auto font-mono text-xs sm:text-[13px] text-text leading-relaxed">
             <pre className="text-subtext1">{INFRA_EXHIBIT.caddyConfig}</pre>
           </div>
         )}
 
-        {/* Tab 4: Dockerfile */}
+        {/* Tab 5: Dockerfile */}
         {activeTab === 'dockerfile' && (
           <div className="rounded-lg border border-surface1 bg-crust p-4 overflow-x-auto font-mono text-xs sm:text-[13px] text-text leading-relaxed">
             <pre className="text-subtext1">{INFRA_EXHIBIT.dockerfileConfig}</pre>

@@ -1,17 +1,62 @@
-name: Build, Test & Publish Container Image
+name: Build, Verify & Publish Multi-Arch Image
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main" ]
+    tags: [ "v*.*.*" ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "main" ]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: brian-e-ramirez-zea/portfolio-webapp
 
 jobs:
-  test-and-build:
+  verify:
+    name: Verification Gate (Typecheck, Build & Security Scan)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Extract Short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      # Step 1: In-container verification (Typecheck & Production compilation)
+      - name: In-Container Verification (target: test)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          target: test
+          load: true
+          tags: ${{ env.IMAGE_NAME }}:test-gate
+          build-args: |
+            COMMIT_SHA=sha-${{ steps.vars.outputs.sha_short }}
+            APP_ENV=production
+
+      # Step 2: Container Vulnerability Scan
+      - name: Scan Container Image for Vulnerabilities
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}:test-gate
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+  publish:
+    name: Multi-Arch Build & Publish (GHCR)
+    needs: verify
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -21,7 +66,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up QEMU for multi-arch build
+      - name: Set up QEMU (arm64 & amd64 emulation)
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
@@ -35,42 +80,40 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      # Step 1: Run in-container test stage
-      - name: In-Container Verification (Typecheck & Build)
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          target: test
-          push: false
-          tags: ${{ env.IMAGE_NAME }}:test-validation
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
-
-      # Step 2: Log in to GitHub Container Registry
       - name: Log in to GitHub Container Registry
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Short SHA
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Extract Metadata & Tags
+        id: meta
+        run: |
+          SHA_SHORT=$(git rev-parse --short HEAD)
+          echo "sha_short=${SHA_SHORT}" >> $GITHUB_OUTPUT
+          
+          # Immutable tag contract: short commit SHA and full SHA
+          TAGS="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${SHA_SHORT},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          
+          # Append semver tag if triggered by tag push (e.g. v1.0.0)
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            TAG_NAME="${GITHUB_REF#refs/tags/}"
+            TAGS="${TAGS},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${TAG_NAME}"
+          fi
+          
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
 
-      # Step 3: Multi-arch Docker Build & Push
-      - name: Multi-Arch Build & Push (amd64 & arm64)
-        if: github.event_name != 'pull_request'
+      - name: Multi-Arch Build & Push (linux/amd64 & linux/arm64)
         uses: docker/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.sha_short }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            COMMIT_SHA=sha-${{ steps.meta.outputs.sha_short }}
+            APP_ENV=production
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 

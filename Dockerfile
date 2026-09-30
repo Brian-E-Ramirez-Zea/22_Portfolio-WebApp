@@ -12,6 +12,10 @@ RUN npm ci
 # ==========================================
 FROM deps AS test
 WORKDIR /app
+ARG COMMIT_SHA=sha-local
+ARG APP_ENV=production
+ENV VITE_COMMIT_SHA=$COMMIT_SHA
+ENV VITE_APP_ENV=$APP_ENV
 COPY . .
 
 RUN npm run typecheck

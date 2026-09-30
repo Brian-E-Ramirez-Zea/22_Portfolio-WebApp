@@ -1,0 +1,2 @@
+- [x] apply airbets repo link (https://github.com/CodePath-Tech-Exchange-CTEx/ise-lab2-cicd-team-cuisine)
+- [x] omitted StockSense from portfolio in favor of higher-impact, public distributed systems projects

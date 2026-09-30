@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: portfolio-webapp
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: portfolio-webapp
+  filterTags:
+    pattern: '^sha-[a-f0-9]+'
+  policy:
+    numerical:
+      order: asc

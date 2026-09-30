@@ -2,7 +2,7 @@ import { Project, SkillGroup, FastfetchInfo, ClusterStatus, InfraExhibitData } f
 
 export const PERSONAL_INFO = {
   name: "Brian E. Ramirez Zea",
-  handle: "bz@fermi",
+  handle: "be-r@zea",
   role: "Software & Infrastructure Engineer",
   headline: "Software & Infrastructure Engineer",
   summary: "Building resilient distributed systems, modern full-stack applications, and automated delivery pipelines with systems-level discipline.",
@@ -13,35 +13,35 @@ export const PERSONAL_INFO = {
   resumeUrl: "/resume.pdf",
   githubUrl: "https://github.com/Brian-E-Ramirez-Zea",
   linkedinUrl: "https://linkedin.com/in/brian-e-ramirez-zea",
-  commitSha: "sha-main-e890be1",
-  clusterName: "fermi-mesh-k3s",
+  commitSha: typeof __COMMIT_SHA__ !== 'undefined' ? __COMMIT_SHA__ : 'sha-main',
+  clusterName: "UnifiedVault",
 };
 
 export const CLUSTER_STATUS: ClusterStatus = {
   status: 'healthy',
-  statusText: 'Cluster Status: Healthy',
-  activeNodes: 3,
-  activePods: 16,
+  statusText: 'Cluster Status: Healthy (2 Nodes)',
+  activeNodes: 2,
+  activePods: 14,
   clusterLatencyMs: 12,
-  region: 'us-east (OCI Ashburn) + edge-mesh',
+  region: 'Hybrid Mesh (Control: tradingpi + Worker: ai-node)',
   tailscaleOverlay: '100.64.0.0/10 Encrypted WireGuard Mesh'
 };
 
 export const FASTFETCH_DATA: FastfetchInfo = {
   user: "brian",
-  host: "fermi-node01",
-  os: "Arch Linux x86_64 / Debian aarch64",
+  host: "tradingpi",
+  os: "Debian aarch64 / Arch Linux x86_64",
   kernel: "Linux 6.12.11-hardened",
   uptime: "142 days, 8 hrs, 24 mins",
   shell: "zsh 5.9 (omz / catppuccin-mocha)",
-  packages: "1,248 (pacman), 16 (k3s-pods)",
+  packages: "1,248 (pacman), 14 (k3s-pods)",
   primaryFocus: [
     "Full-Stack Development",
     "Cloud & Distributed Systems",
     "K8s & Linux Hardening"
   ],
   tooling: [
-    "Linux (Arch)",
+    "Linux (Arch/Debian)",
     "Docker",
     "K3s",
     "TypeScript",
@@ -51,7 +51,7 @@ export const FASTFETCH_DATA: FastfetchInfo = {
     "Java"
   ],
   architecture: "Multi-node Hybrid Mesh over Tailscale",
-  clusterMesh: "K3s HA (Oracle Cloud OCI + Edge RPi 5)"
+  clusterMesh: "K3s HA (Control: tradingpi + Worker: ai-node)"
 };
 
 export const PROJECTS: Project[] = [
@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     architecture: "Containerized Python/Flask backend deployed to Google Cloud Run serverless containers, connected directly to Google Cloud BigQuery for data warehousing and Vertex AI APIs for generative insights. Fully automated via GitHub Actions CI/CD.",
     impact: "Achieved sub-second cold starts, zero-downtime automated deployments on Cloud Run, and strict code quality validated by comprehensive test suites.",
     tags: ["Python", "Flask", "Google Cloud Run", "BigQuery", "Vertex AI", "Docker", "CI/CD"],
-    githubUrl: "https://github.com/Brian-E-Ramirez-Zea",
+    githubUrl: "https://github.com/CodePath-Tech-Exchange-CTEx/ise-lab2-cicd-team-cuisine",
     featured: true
   },
   {
@@ -108,19 +108,6 @@ export const PROJECTS: Project[] = [
     tags: ["6502 Assembly", "Low-Level Systems", "Memory Mapping", "Hardware Interrupts", "State Machines"],
     githubUrl: "https://github.com/Brian-E-Ramirez-Zea",
     featured: true
-  },
-  {
-    id: "stocksense",
-    title: "StockSense: Transactional Inventory REST API",
-    category: "Backend & Systems Design",
-    date: "2026",
-    summary: "Transaction-based inventory management REST API and CLI tool with automated stock reordering logic.",
-    problem: "Inventory systems frequently experience silent drift, race conditions during high-concurrency adjustments, and lack verifiable audit trails.",
-    architecture: "Centralized Python backend utilizing a strict transactional ledger model for all SKU updates. Features automated reordering triggers based on historical usage velocity, Role-Based Access Control (RBAC), and CSV data portability.",
-    impact: "Eliminated inventory discrepancy errors across all SKU updates, built within an Agile team of 6 from specification to fully verified MVP.",
-    tags: ["Python", "REST API", "System Architecture", "RBAC", "CLI", "Transactions"],
-    githubUrl: "https://github.com/Brian-E-Ramirez-Zea",
-    featured: false
   },
   {
     id: "ai-resume-pipeline",
@@ -188,33 +175,33 @@ export const SKILL_GROUPS: SkillGroup[] = [
 
 export const INFRA_EXHIBIT: InfraExhibitData = {
   title: "How This Site Works",
-  summary: "This portfolio is not hosted on generic shared hosting. It runs as a containerized edge workload inside an unprivileged Caddy container deployed to an encrypted multi-node K3s cluster across Oracle Cloud Infrastructure and edge hardware, bounded by strict resource quotas.",
+  summary: "This portfolio is not hosted on generic shared hosting. It runs as a containerized edge workload inside an unprivileged Caddy container deployed to an encrypted multi-node K3s cluster across tradingpi (control plane) and ai-node (worker), bounded by strict resource quotas.",
   memoryQuota: "16Mi",
   cpuQuota: "100m",
-  networkTopology: "Tailscale WireGuard Mesh (OCI Ashburn + Edge RPi5)",
+  networkTopology: "Tailscale WireGuard Mesh (Control: tradingpi + Worker: ai-node)",
   pipelineSteps: [
     {
       id: "stage-1",
-      title: "1. GitHub Actions Buildx",
-      desc: "Git push triggers a multi-stage Docker build with target testing and multi-arch compilation (amd64/arm64).",
+      title: "1. Trunk-Based GitHub Actions",
+      desc: "Merge to main triggers multi-arch buildx (amd64/arm64) and produces immutable SHA and semver container artifacts.",
       badge: "CI/CD Automation"
     },
     {
       id: "stage-2",
-      title: "2. In-Container Verification",
-      desc: "Container build executes strict TypeScript checks (tsc --noEmit) and asset optimization before image publishing.",
+      title: "2. Verification Gate & Scan",
+      desc: "Executes strict TypeScript compilation (tsc --noEmit), production bundling, and container security scanning.",
       badge: "Quality Gate"
     },
     {
       id: "stage-3",
-      title: "3. Tailscale WireGuard Mesh",
-      desc: "Images are synchronized to the private cluster over an encrypted zero-trust mesh without public port exposure.",
-      badge: "Zero-Trust Network"
+      title: "3. Flux CD GitOps Sync",
+      desc: "Cluster controller reconciles declarative manifests from UnifiedVault monorepo with zero kubeconfig credentials in CI.",
+      badge: "GitOps Boundary"
     },
     {
       id: "stage-4",
       title: "4. K3s Pod Scheduling",
-      desc: "Scheduled into the K3s cluster with strict 16Mi RAM requests to co-exist alongside academic workloads.",
+      desc: "Scheduled into tradingpi/ai-node with strict 16Mi RAM requests to co-exist alongside active homelab workloads.",
       badge: "16Mi RAM Quota"
     },
     {
@@ -228,12 +215,17 @@ export const INFRA_EXHIBIT: InfraExhibitData = {
 kind: Deployment
 metadata:
   name: portfolio-webapp
-  namespace: edge-production
+  namespace: portfolio
   labels:
-    app: portfolio-webapp
+    app.kubernetes.io/name: portfolio-webapp
     tier: frontend
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: portfolio-webapp
@@ -249,7 +241,7 @@ spec:
         fsGroup: 10001
       containers:
       - name: web
-        image: ghcr.io/brian-e-ramirez-zea/portfolio:latest
+        image: ghcr.io/brian-e-ramirez-zea/portfolio-webapp:sha-7b3f91a
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -273,20 +265,82 @@ spec:
             port: 8080
           initialDelaySeconds: 2
           periodSeconds: 10
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: tmp-dir
+          mountPath: /tmp
+      volumes:
+      - name: tmp-dir
+        emptyDir:
+          medium: Memory
+          sizeLimit: 4Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: portfolio-service
-  namespace: edge-production
+  namespace: portfolio
 spec:
   type: ClusterIP
+  clusterIP: 10.43.202.86
   selector:
     app: portfolio-webapp
   ports:
   - port: 80
     targetPort: 8080
     name: http`,
+  gitopsManifest: `apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: portfolio-webapp
+  namespace: flux-system
+spec:
+  image: ghcr.io/brian-e-ramirez-zea/portfolio-webapp
+  interval: 5m
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: portfolio-webapp
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: portfolio-webapp
+  filterTags:
+    pattern: '^sha-[a-f0-9]+'
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: portfolio-webapp
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: unifiedvault-monorepo
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@be-ramirezzea.dev
+        name: FluxCD Bot
+      messageTemplate: 'chore(portfolio): promote image to {{range .Updated.Images}}{{println .}}{{end}}'
+    push:
+      branch: main
+  update:
+    path: ./k8s/apps/portfolio/overlays/prod
+    strategy: Setters`,
   caddyConfig: `:8080 {
     root * /srv
     encode zstd gzip
