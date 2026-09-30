@@ -5,6 +5,7 @@ namespace: portfolio-dev
 nameSuffix: -dev
 
 resources:
+  - namespace.yaml
   - ../../base
 
 patches:
