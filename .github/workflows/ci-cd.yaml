@@ -31,7 +31,7 @@ jobs:
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       # Step 1: In-container verification (Typecheck & Production compilation)
-      - name: In-Container Verification (target: test)
+      - name: "In-Container Verification (target: test)"
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -44,7 +44,7 @@ jobs:
 
       # Step 2: Container Vulnerability Scan
       - name: Scan Container Image for Vulnerabilities
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.31.0
         with:
           image-ref: ${{ env.IMAGE_NAME }}:test-gate
           format: 'table'
