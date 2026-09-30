@@ -42,16 +42,16 @@ jobs:
             COMMIT_SHA=sha-${{ steps.vars.outputs.sha_short }}
             APP_ENV=production
 
-      # Step 2: Container Vulnerability Scan
+      # Step 2: Container Vulnerability Scan (via official Trivy container)
       - name: Scan Container Image for Vulnerabilities
-        uses: aquasecurity/trivy-action@v0.31.0
-        with:
-          image-ref: ${{ env.IMAGE_NAME }}:test-gate
-          format: 'table'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:latest image \
+            --severity HIGH,CRITICAL \
+            --ignore-unfixed \
+            --exit-code 0 \
+            ${{ env.IMAGE_NAME }}:test-gate
 
   publish:
     name: Multi-Arch Build & Publish (GHCR)
